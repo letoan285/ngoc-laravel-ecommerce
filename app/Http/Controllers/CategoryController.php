@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -12,9 +14,13 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // return Category::all();
+        $pageSize = $request->pageSize ?? 2 ;
+        $categories = Category::paginate($pageSize);
+        
+        // return response()->json($categories);
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -24,7 +30,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.create', compact('categories'));
     }
 
     /**
@@ -35,7 +42,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $category = new Category();
+
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name, '-').'.html';
+        $category->image = $request->image;
+        $category->parent_id = $request->parent_id;
+        $category->status = $request->status;
+
+        if($category->save()){
+            return redirect()->route('categories.index');
+        } else {
+            return 'Insert Fail';
+        }
+
     }
 
     /**
