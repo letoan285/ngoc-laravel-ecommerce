@@ -15,4 +15,8 @@ class Product extends Model
             return $cate->name;
         }
     }
+    public function category()
+    {
+     return $this-> belongsTo(Category::class);
+    }
 }

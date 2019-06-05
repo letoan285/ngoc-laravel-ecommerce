@@ -13,6 +13,8 @@ Route::get('/', 'HomeController@index');
 //      return [$productID];
 // })->where('name', '[a-z]+');
 Route::get('/products', 'ProductController@index')->name('products.index');
+Route::get('/products/create', 'ProductController@create')->name('products.create');
+Route::post('/products', 'ProductController@index')->name('products.index');
 
 Route::get('categories', function() {
     $cates = DB::table('categories')->get();
@@ -24,3 +26,8 @@ Route::get('categories', function() {
 Route::get('categories', 'CategoryController@index')->name('categories.index');
 Route::get('categories/create', 'CategoryController@create')->name('categories.create');
 Route::post('categories', 'CategoryController@store')->name('categories.store');
+
+// User routes
+Route::get('users', 'UserController@index')->name('users.index');
+Route::get('users/create', 'UserController@create')->name('users.create');
+Route::post('users', 'UserController@store')->name('users.store');
