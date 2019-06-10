@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\DB;
 //use DB;
 
 Route::get('/', 'HomeController@index');
+Route::get('/dashboard', 'HomeController@index');
 // Route::get('/products/{id}/{name}', function ($productID) {
 //     $products = [
 //         ['id' => 1, 'name' => 'product 1'],
@@ -15,6 +16,8 @@ Route::get('/', 'HomeController@index');
 Route::get('/products', 'ProductController@index')->name('products.index');
 Route::get('/products/create', 'ProductController@create')->name('products.create');
 Route::post('/products', 'ProductController@index')->name('products.index');
+Route::get('/products/{id}', 'ProductController@destroy')->name('products.destroy');
+Route::post('/products', 'ProductController@store')->name('products.store');
 
 Route::get('categories', function() {
     $cates = DB::table('categories')->get();

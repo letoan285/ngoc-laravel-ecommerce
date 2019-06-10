@@ -53,14 +53,17 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->save();
-        for($i = 0; $i < count($role_ids); $i++) {
-            DB::table('role_user')->insert([
-                'user_id' => $user->id,
-                'role_id' => $role_ids[$i]
-            ]);
+        if($user->save()){
+            $user->roles()->sync($request->role_id, false);
         }
+        // for($i = 0; $i < count($role_ids); $i++) {
+        //     DB::table('role_user')->insert([
+        //         'user_id' => $user->id,
+        //         'role_id' => $role_ids[$i]
+        //     ]);
+        // }
         // dd($user->id);
+        
         return redirect()->route('users.index');
     }
 
