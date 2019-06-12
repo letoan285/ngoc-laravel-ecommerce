@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Repositories\Category\CategoryInterface;
 
 class CategoryController extends Controller
 {
+    protected $model;
+
+    public function __construct(CategoryInterface $categories)
+    {
+        $this->model = $categories;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +22,8 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $pageSize = $request->pageSize ?? 2 ;
-        $categories = Category::paginate($pageSize);
-        
-        // return response()->json($categories);
-        return view('admin.categories.index', compact('categories'));
+        return $this->model->getAll();
+        // return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -30,7 +33,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+
+        $categories = $this->model->getAll();
         return view('admin.categories.create', compact('categories'));
     }
 
@@ -43,19 +47,23 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
 
-        $category = new Category();
+        // $category = new Category();
 
-        $category->name = $request->name;
-        $category->slug = Str::slug($request->name, '-').'.html';
-        $category->image = $request->image;
-        $category->parent_id = $request->parent_id;
-        $category->status = $request->status;
+        // $category->name = $request->name;
+        // $category->slug = Str::slug($request->name, '-').'.html';
+        // $category->image = $request->image;
+        // $category->parent_id = $request->parent_id;
+        // $category->status = $request->status;
 
-        if($category->save()){
-            return redirect()->route('categories.index');
-        } else {
-            return 'Insert Fail';
-        }
+        // if($category->save()){
+        //     return redirect()->route('categories.index');
+        // } else {
+        //     return 'Insert Fail';
+        // }
+       return $this->model->create($request->only($this->model->getModel()->fillable));
+        // $this->model->create($request->all());
+        //return redirect()->route('categories.index');
+
 
     }
 
@@ -65,9 +73,9 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        return $this->model->getById($id);
     }
 
     /**
@@ -76,7 +84,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit()
     {
         //
     }
@@ -88,7 +96,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request)
     {
         //
     }
@@ -99,7 +107,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy()
     {
         //
     }

@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public $request;
+    public $model;
 
-    public function __construct(Request $request)
+    public function __construct(User $user, Request $request)
     {
         $this->request = $request;
+        $this->model = $user;
     }
     /**
      * Display a listing of the resource.
@@ -22,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = $this->model->all();
         return view('admin.users.index', compact('users'));
     }
 
@@ -75,7 +77,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+
+        return $this->model->find($id);
+
     }
 
     /**
@@ -109,6 +113,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->model->delete($id);
     }
 }

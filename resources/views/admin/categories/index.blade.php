@@ -22,7 +22,7 @@
                         @foreach ($categories as $category)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td><a href="">{{ $category->name }}</a> </td>
+                                <td><a href="{{route('categories.show', $category->id)}}">{{ $category->name }}</a> </td>
                                 <td>{{ $category->getParentName($category->parent_id) }}</td>
                                 <td>{{ $category->status == 1 ? 'Active' : 'Inactive' }}</td>
                                 <td>

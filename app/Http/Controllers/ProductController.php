@@ -28,13 +28,13 @@ class ProductController extends Controller
         $products->withPath($path);
         return view('admin.products.index', compact('products', 'keyword'));
     }
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {   
         //dd($request->id);
-        $product = Product::find($request->id);
-        if($product->delete()){
-            return redirect()->route('products.index');
-        }
+        // $product = Product::find(1);
+        // if($product->delete()){
+        //     return redirect()->route('products.index');
+        // }
     }
     public function create()
     {

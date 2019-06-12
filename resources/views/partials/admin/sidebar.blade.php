@@ -83,7 +83,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./products/add" class="nav-link">
+                <a href="{{route('products.create')}}" class="nav-link">
                   <i class="fa fa-plus"></i>
                   <p>Add</p>
                 </a>
@@ -106,7 +106,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./admin/categories/add" class="nav-link">
+              <a href="{{route('categories.create')}}" class="nav-link">
                   <i class="fa fa-plus"></i>
                   <p>Add</p>
                 </a>

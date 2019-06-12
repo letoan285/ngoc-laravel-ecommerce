@@ -22,7 +22,7 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td><a href="">{{ $user->name }}</a> </td>
+                                <td><a href="{{route('users.show', $user->id)}}">{{ $user->name }}</a> </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->status == 1 ? 'Active' : 'Inactive' }}</td>
                                 <td>
