@@ -36,3 +36,7 @@ Route::get('users', 'UserController@index')->name('users.index');
 Route::get('users/{id}', 'UserController@show')->name('users.show');
 Route::get('users/create', 'UserController@create')->name('users.create');
 Route::post('users', 'UserController@store')->name('users.store');
+
+// Supplier Routes
+Route::get('suppliers', 'SupplierController@index')->name('suppliers.index');
+Route::post('suppliers', 'SupplierController@store')->name('suppliers.store');

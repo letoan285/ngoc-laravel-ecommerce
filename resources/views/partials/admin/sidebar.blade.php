@@ -115,6 +115,29 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-list"></i>
+              <p>
+                Suppliers
+                <i class="fa fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('suppliers.index')}}" class="nav-link">
+                  <i class="fa fa-list"></i>
+                  <p>List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+              <a href="{{route('categories.create')}}" class="nav-link">
+                  <i class="fa fa-plus"></i>
+                  <p>Add</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fa fa-user"></i>
               <p>
                 Users
